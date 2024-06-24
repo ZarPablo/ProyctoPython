@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de productos </title>
+    <link rel="stylesheet" href="./static/css/estilos.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar-index">
+            <img class="logo-nav" src="./static/imagenes/san-guis-sf.png" alt="logo sanguis">
+        </nav>
+    </header>
+    
+    <div>
+        <div class="logo-centrado">
+            <img src="./static/imagenes/san-guis-sf.png" alt="logo">
+        </div>
+        <h2>Listado de Productos del inventario</h2><br>
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                    <th align="right">Precio</th>
+                    <th>Imagen</th>
+                    <th align="right">Proveedor</th>
+                </tr>
+            </thead>
+            <tbody id="tablaProductos"></tbody>
+        </table><br>
+        <div class="contenedor-centrado">
+            <a href="index.html">Menu Princial</a>
+        </div>
+        <script>
+            const URL = "http://127.0.0.1/5000/"
+        </script>
+
+    </div>       
+</body>
+</html>

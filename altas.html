@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar productos </title>
+    <link rel="stylesheet" href="./static/css/estilos.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar-index">
+            <img class="logo-nav" src="./static/imagenes/san-guis-sf.png" alt="logo sanguis">
+        </nav>
+    </header>
+    
+    <div>
+        <div class="logo-centrado">
+            <img src="./static/imagenes/san-guis-sf.png" alt="logo">
+        </div>
+        <h2>Agregar productos al inventario</h2><br>
+        <form id="formulario" enctype="multipart/form-data">
+            <label for="descripcion">Descripción</label>
+            <input type="text" id="descripcion" name="descripcion" rerquired><br>
+
+            <label for="cantidad">Cantidad</label>
+            <input type="number" id="cantidad" name="cantidad" rerquired><br>
+
+            <label for="precio">Precio</label>
+            <input type="number" id="precio" name="precio" rerquired><br>
+
+            <label for="imagenProducto">Imagen del producto</label>
+            <input type="file" id="imagenProducto" name="imagenProducto" rerquired><br>
+            <br><br>
+            <label for="proveedorProducto">Proveedor</label>
+            <input type="text" id="proveedorProducto" name="proveedorProducto">
+
+            <button type="submit">Agregar Producto</button>
+            <a href="index.html">Menu Principal</a>
+        </form>
+        <script>
+            const URL = "http://127.0.0.1:5000/"
+
+            document.getElementById('formulario').addEventListener('submit', function (event) {
+                event.preventDefault();
+                var formData = new FormData(this);
+                fetch(URL + 'productos', {
+                    method:'POST',
+                    body: formData
+                })
+                .then(function (response) {
+                    if (response.ok) {
+                        return response.json();
+                    } else{
+                        throw new Error('Error al agregar el producto.');
+                    }
+                })
+                .then(function (data) {
+                    alert('Producto agregado correctamente.');
+                })
+                .catch(function (error) {
+                    alert('Error al agregar el producto.');
+                })
+                .finally(function () {
+                    document.getElementById('descripcion').value = "";
+                    document.getElementById('cantidad').value = "";
+                    document.getElementById('Precio').value = "";
+                    document.getElementById('imagenProducto').value = "";
+                    document.getElementById('proveedroProducto').value = "";
+                });
+            })
+        </script>
+
+    </div>    
+</body>
+</html>
