@@ -112,7 +112,7 @@ def eliminar_producto(codigo):
         if catalogo.eliminar_producto(codigo):
             return jsonify({"mensaje": "Producto eliminado"}), 200
         else:
-            return jsonify({"mensaje". "Error al eliminar el producto"}), 500
+            return jsonify({"mensaje": "Error al eliminar el producto"}), 500
     else:
             return jsonify({"mensaje": "Productono encontrado"}), 404    
 
