@@ -3,21 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar productos </title>
+    <title>Eliminar productos </title>
     <link rel="stylesheet" href="./static/css/estilos.css">
 </head>
 <body>
     <header>
         <nav class="navbar-index">
-            <img class="logo-nav" src="./static/imagenes/san-guis-sf.png" alt="logo sanguis">
+            <img class="logo-nav" src="" alt="logo sanguis">
         </nav>
     </header>
     
     <div>
         <div class="logo-centrado">
-            <img src="./static/imagenes/san-guis-sf.png" alt="logo">
+            <img src="" alt="logo">
         </div>
-        <h2>Agregar productos al inventario</h2><br>
+        <h2>Eliminar productos del inventario</h2><br>
+        <table id="productos-table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                    <th align="right">Precio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table><br>
+        <div class="contenedor-centrado">
+            <a href="index.html">Menu principal</a>
+        </div>
+        const URL = "http://127.0.0.1:5000/"
+        function obtenerProductos() { 
+            fetch(URL + 'productos')
+            .then(response => { 
+                if (response.ok) { return response.json(); }
+            }
+            .then(data => { 
+                const productosTable = 
+                document.getElementById('productos-table').getElementsByTagName('tbody')[0];
+                productosTable.innerHTML = '';
+                data.forEach(producto => {
+                    const row = productosTable.insertRow();
+                    row.innerHTML = `
+                        <td>${producto.codigo}</td>
+                        <td>${producto.descripcion}</td>
+                        <td>${producto.cantidad}</td>
+                        <td align="right">${producto.precio}</td>
+                        <td><button onclick="eliminarProducto('${producto.codigo}')">Eliminar</button></td>
+                        `;
+                    });
+                })
+                .catch(error => {
+                    console.log('Error:', error);
+                    alert('Error al obtener los productos.');
+                });
+            }
+            function eliminarProducto(codigo) {
+                if (confirm('¿Estás seguro de que quieres eliminar este producto?')) {
+                    fetch(URL + `productos/${codigo}`, { method: 'DELETE' })
+                        .then(response => {
+                            if (response.ok) {
+                                obtenerProductos();
+                                alert('Producto eliminado correctamente.');
+                            }
+                        })
+                        .catch(error => {
+                            alert(error.message);
+                        });
+                }
+            }
+            document.addEventListener('DOMContentLoaded', obtenerProductos);
 
     </div>   
 </body>
